@@ -1,6 +1,5 @@
 package com.studentcourseregistration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.studentcourseregistration.entity.Course;
 import com.studentcourseregistration.entity.Student;
+import com.studentcourseregistration.entity.StudentCourse;
 import com.studentcourseregistration.jpa.StudentJpaRepository;
 
 @SpringBootApplication
@@ -29,6 +29,35 @@ public class StudentCourseRegistrationApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Course A = new Course("A");
 		Course B = new Course("B");
+		
+		Student charlie = new Student("Charlie");
+		StudentCourse sc1 = new StudentCourse(charlie, A, 10);
+		Student bob = new Student("Bob");
+		StudentCourse sc2 = new StudentCourse(bob, B, 20);
+		Student adam = new Student("Adam");
+		StudentCourse sc3 = new StudentCourse(adam, A, 30);
+
+		logger.info("inserting student 1: {}", studentRepository.insertStudentCourse(sc1));
+		logger.info("inserting student 2: {}", studentRepository.insertStudentCourse(sc2));
+		logger.info("inserting student 3: {}", studentRepository.insertStudentCourse(sc3));
+		
+		List<Student> students = studentRepository.findAllStudentsByCourse("A");
+		logger.info("finding students for course A:");
+		for (Student s : students) {
+			logger.info("{}", s);
+		}
+		
+		List<Student> students2 = studentRepository.findAllStudentsNotInCourse("A");
+		logger.info("finding students for course A:");
+		for (Student s : students2) {
+			logger.info("{}", s);
+		}
+		
+		
+		logger.info("deleting student 1");
+		studentRepository.deleteById(1);
+		
+		/*
 		List<Course> courses = new ArrayList<Course>();
 		courses.add(A);
 		courses.add(B);
@@ -56,6 +85,7 @@ public class StudentCourseRegistrationApplication implements CommandLineRunner {
 		
 		logger.info("deleting student 1");
 		studentRepository.deleteById(1);
+		*/
 	}
 
 }
