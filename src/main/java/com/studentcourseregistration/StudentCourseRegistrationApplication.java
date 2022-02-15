@@ -35,10 +35,12 @@ public class StudentCourseRegistrationApplication implements CommandLineRunner {
 		Student bob = new Student("Bob");
 		StudentCourse sc2 = new StudentCourse(bob, B, 20);
 		Student adam = new Student("Adam");
-		StudentCourse sc3 = new StudentCourse(adam, A, 30);
 
 		logger.info("inserting student 1: {}", studentRepository.insertStudentCourse(sc1));
 		logger.info("inserting student 2: {}", studentRepository.insertStudentCourse(sc2));
+		
+		A = studentRepository.findCourseById(1);
+		StudentCourse sc3 = new StudentCourse(adam, A, 30);
 		logger.info("inserting student 3: {}", studentRepository.insertStudentCourse(sc3));
 		
 		List<Student> students = studentRepository.findAllStudentsByCourse("A");

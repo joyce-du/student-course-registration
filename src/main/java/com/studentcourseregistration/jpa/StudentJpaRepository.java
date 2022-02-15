@@ -25,22 +25,22 @@ public class StudentJpaRepository {
 	}
 	
 	public StudentCourse insertStudentCourse(StudentCourse studentCourse) {
-		Student s = findById(studentCourse.getStudent().getId());
-		if (s != null) {
-			studentCourse.setStudent(s);
-		}
 		return entityManager.merge(studentCourse);
 	}
 	
 	public Course insertCourse(Course course) {
 		return entityManager.merge(course);
 	}
-	private Student findById(int id) {
+	public Student findStudentById(int id) {
 		return entityManager.find(Student.class, id);
 	}
 	
+	public Course findCourseById(int id) {
+		return entityManager.find(Course.class, id);
+	}
+	
 	public void deleteById(int id) {
-		Student student = findById(id);
+		Student student = findStudentById(id);
 		entityManager.remove(student);
 	}
 

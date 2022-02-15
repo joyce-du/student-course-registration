@@ -20,7 +20,6 @@ public class StudentCourse {
 	private Student student;
 	
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, optional=false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="course_id")
 	private Course course;
 	
